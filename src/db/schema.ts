@@ -1,4 +1,4 @@
-import { serial, text, timestamp, pgTable, integer, boolean, jsonb } from "drizzle-orm/pg-core";
+import { serial, text, timestamp, pgTable, integer, boolean, jsonb, pgEnum } from "drizzle-orm/pg-core";
 
 export const user = pgTable('user', {
   // id, username, email, password, created_at, updated_at, last_login
@@ -14,11 +14,22 @@ export const user = pgTable('user', {
 export type InsertUser = typeof user.$inferInsert;
 export type SelectUser = typeof user.$inferSelect;
 
+const projectType = pgEnum('project_type', ['novel', 'short_story', 'poem', 'script', 'other']);
+
 export const project = pgTable('project', {
   // id, title, description, created at, updated_at
   id: serial('id').primaryKey(),
+  type: projectType('type').default('novel'),
   title: text('title').notNull(),
   description: text('description'),
+  genre: text('genre'),
+  tone: text('tone'),
+  point_of_view: text('point_of_view'),
+  synopsis: text('synopsis'),
+  theme: text('theme'),
+  world: text('world'),
+  color_scheme: text('color_scheme'),
+   
   created_at: timestamp('created_at').notNull().defaultNow(),
   updated_at: timestamp('updated_at').notNull().$onUpdate(()=>new Date()),
   userId: integer('user_id')
@@ -26,8 +37,64 @@ export const project = pgTable('project', {
           .references(()=>user.id, {onDelete: 'cascade'}),
 });
 
+
 export type InsertProject = typeof project.$inferInsert;
 export type SelectProject = typeof project.$inferSelect;
+
+export const lore = pgTable('lore', {
+  
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  content: text('content'),
+  created_at: timestamp('created_at').notNull().defaultNow(),
+  last_modified: timestamp('last_modified').notNull().$onUpdate(()=>new Date()),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertLore = typeof lore.$inferInsert;
+export type SelectLore = typeof lore.$inferSelect;
+
+export const inspirations = pgTable('inspirations', {
+  
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  insights: text('insights'),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertInspirations = typeof inspirations.$inferInsert;
+export type SelectInspirations = typeof inspirations.$inferSelect;
+
+export const emotions = pgTable('emotions', {
+  
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  description: text('description'),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertEmotions = typeof emotions.$inferInsert;
+export type SelectEmotions = typeof emotions.$inferSelect;
+
+export const beats = pgTable('beats', {
+  
+  id: serial('id').primaryKey(),
+  sequence_no: integer('sequence_no').notNull(),
+  title: text('title').notNull(),
+  description: text('description'),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertBeats = typeof beats.$inferInsert;
+export type SelectBeats = typeof beats.$inferSelect;
 
 export const chapter = pgTable('chapter', {
   // id, title, content, created_at, last_modified, word_count

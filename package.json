@@ -8,20 +8,26 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": { 
+  "dependencies": {
+    "@langchain/community": "^0.3.19",
+    "@langchain/groq": "^0.1.2",
+    "@langchain/redis": "^0.1.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.37.0",
+    "ioredis": "^5.4.2",
+    "langchain": "^0.3.7",
     "next": "15.0.4",
     "pg": "^8.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "redis": "^4.7.0",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/pg": "^8.11.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.29.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
