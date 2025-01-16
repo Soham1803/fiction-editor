@@ -7,7 +7,7 @@ export async function PUT(req: NextRequest, params: {id: string}){
 
     const data = await req.json();
 
-    if(data.title || data.description || data.userId){
+    if(data.title || data.description || data.genre || data.tone || data.point_of_view || data.theme || data.color_scheme ||data.userId){
       return NextResponse.json({ message: "Please provide all the required fields", status: 400});
     }
 

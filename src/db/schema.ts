@@ -25,9 +25,7 @@ export const project = pgTable('project', {
   genre: text('genre'),
   tone: text('tone'),
   point_of_view: text('point_of_view'),
-  synopsis: text('synopsis'),
   theme: text('theme'),
-  world: text('world'),
   color_scheme: text('color_scheme'),
    
   created_at: timestamp('created_at').notNull().defaultNow(),
@@ -41,10 +39,37 @@ export const project = pgTable('project', {
 export type InsertProject = typeof project.$inferInsert;
 export type SelectProject = typeof project.$inferSelect;
 
+export const synopsis = pgTable('synopsis', {
+  
+  id: serial('id').primaryKey(),
+  content: text('content'),
+  created_at: timestamp('created_at').notNull().defaultNow(),
+  last_modified: timestamp('last_modified').notNull().$onUpdate(()=>new Date()),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertSynopsis = typeof synopsis.$inferInsert;
+export type SelectSynopsis = typeof synopsis.$inferSelect;
+
+export const world = pgTable('world', {
+  
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(), // could be an ai generated name
+  description: text('description'),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertWorld = typeof world.$inferInsert;
+export type SelectWorld = typeof world.$inferSelect;
+
 export const lore = pgTable('lore', {
   
   id: serial('id').primaryKey(),
-  title: text('title').notNull(),
+  title: text('title').notNull(), // could be an ai generated name
   content: text('content'),
   created_at: timestamp('created_at').notNull().defaultNow(),
   last_modified: timestamp('last_modified').notNull().$onUpdate(()=>new Date()),

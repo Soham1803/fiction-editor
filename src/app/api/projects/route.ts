@@ -1,17 +1,22 @@
-import { getProjectById, createProject, updateProject, deleteProject } from '@/db/queries/project'
+import { getProjectById, createProject } from '@/db/queries/project'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest){
   try{
-    const {title, description, userId} = await req.json();
+    const {title, description, genre, tone, point_of_view, theme, color_scheme, userId} = await req.json();
 
-    if(!title || !description || !userId){
+    if(!title || !description || !userId || !genre || !tone || !point_of_view || !theme || !color_scheme){
       return NextResponse.json({ message: "Please provide all the required fields", status: 400});
     }
 
     const data = {
       title,
       description,
+      genre,
+      tone,
+      point_of_view,
+      theme,
+      color_scheme,
       userId
     }
     await createProject(data);
