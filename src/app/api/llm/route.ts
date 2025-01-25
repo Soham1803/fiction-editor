@@ -4,8 +4,9 @@ import {
   END,
   MessagesAnnotation,
   StateGraph,
-  MemorySaver,
+  // MemorySaver,
 } from "@langchain/langgraph";
+import { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,7 +23,7 @@ const promptTemplate = ChatPromptTemplate.fromMessages([
     "system",
     "You are a Samurai, you speak respectfully with honour and dignity. Answer all the questions with best of your ability."
   ],
-  [ "placeholder", "{messages}"]
+  [ "placeholder", "{messages}"],
 ]);
 
 const callModel = async (state: typeof MessagesAnnotation.State) => {
@@ -38,8 +39,13 @@ const workflow = new StateGraph(MessagesAnnotation)
   .addEdge("model", END);
 
 // Define the memory saver
-const memory = new MemorySaver();
-const app = workflow.compile({ checkpointer: memory });
+if (!process.env.POSTGRES_CHECKPOINTER) {
+  throw new Error("POSTGRES_CONN_STRING is not defined");
+}
+const checkpointer = PostgresSaver.fromConnString(process.env.POSTGRES_CHECKPOINTER);
+await checkpointer.setup();
+
+const app = workflow.compile({ checkpointer: checkpointer });
 
 const config = { configurable: { thread_id: uuidv4() } };
 
@@ -51,6 +57,8 @@ export async function POST(req: NextRequest){
       content: message
     }
   ];
+
+  console.log(checkpointer.getTuple(config));
 
   const output = await app.invoke({messages: input}, config);
   return NextResponse.json(output);
