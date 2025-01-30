@@ -6,7 +6,7 @@ export async function getSynopsisById(id: SelectSynopsis['id']) {
   return await db.select().from(synopsis).where(sql`${synopsis.id} = ${id}`);
 }
 
-export async function getSynopsesByProjectId(projectId: SelectSynopsis['projectId']) {
+export async function getSynopsisByProjectId(projectId: SelectSynopsis['projectId']) {
     return await db.select().from(synopsis).where(sql`${synopsis.projectId} = ${projectId}`);
 }
 

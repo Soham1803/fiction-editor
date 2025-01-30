@@ -32,7 +32,7 @@ export async function POST(req: NextRequest){
       return NextResponse.json({ message: "Please provide all the required fields", status: 400});
     }
 
-    const response = await createChapter({ title, content, projectId });
+    const response = await createChapter({ title, projectId });
 
     return NextResponse.json({message: "Chapter created successfully", response, status: 200})
   } catch (error) {

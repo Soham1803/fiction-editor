@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function PUT(req: NextRequest, params: {id: string}){
   try {
-    const _id = params.id;
+    const _id = parseInt(params.id);
 
     const data = await req.json();
 
@@ -22,7 +22,7 @@ export async function PUT(req: NextRequest, params: {id: string}){
 
 export async function DELETE(req: NextResponse, params: {id: string}) {
   try {
-    const _id = params.id;
+    const _id = parseInt(params.id);
     const response = await deleteProject(_id);
 
     return NextResponse.json({message: "Project deleted successfully", response, status: 200})

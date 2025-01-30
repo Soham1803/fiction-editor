@@ -4,6 +4,7 @@ import {
   END,
   MessagesAnnotation,
   StateGraph,
+  Annotation,
   // MemorySaver,
 } from "@langchain/langgraph";
 import { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
@@ -11,7 +12,13 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
-
+const GraphAnnotation = Annotation.Root({
+  ...MessagesAnnotation.spec,
+  summary: Annotation<string>({
+    reducer: (_, action) => action,
+    default: () => "",
+  })
+})
 
 const llm = new ChatGroq({
   model: "mixtral-8x7b-32768",
@@ -58,7 +65,9 @@ export async function POST(req: NextRequest){
     }
   ];
 
-  console.log(checkpointer.getTuple(config));
+  const tuples = await checkpointer.list(config);
+
+  console.log("Tuples", tuples);
 
   const output = await app.invoke({messages: input}, config);
   return NextResponse.json(output);

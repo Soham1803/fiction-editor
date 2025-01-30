@@ -165,6 +165,9 @@ export const scene = pgTable('scene', {
           .references(()=>chapter.id, {onDelete: 'cascade'}),
 });
 
+export type InsertScene = typeof scene.$inferInsert;
+export type SelectScene = typeof scene.$inferSelect;
+
 // Entity
 
 export const entityType = pgEnum('entity_type', ['character', 'location', 'object', 'lore', 'subplot', 'other' ]);

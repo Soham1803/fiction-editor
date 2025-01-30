@@ -6,6 +6,10 @@ export async function getChapterById(id: SelectChapter["id"]) {
   return await db.select().from(chapter).where(sql`${chapter.id} = ${id}`);
 }
 
+export async function getChaptersByProjectId(projectId: SelectChapter["projectId"]) {
+  return await db.select().from(chapter).where(sql`${chapter.projectId} = ${projectId}`);
+}
+
 export async function createChapter(chapterData: InsertChapter) {
   await db.insert(chapter).values(chapterData);
 }
