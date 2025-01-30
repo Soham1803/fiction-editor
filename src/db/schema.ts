@@ -1,5 +1,7 @@
 import { serial, text, timestamp, pgTable, integer, boolean, jsonb, pgEnum } from "drizzle-orm/pg-core";
 
+// User
+
 export const user = pgTable('user', {
   // id, username, email, password, created_at, updated_at, last_login
   id: serial('id').primaryKey(),
@@ -14,7 +16,23 @@ export const user = pgTable('user', {
 export type InsertUser = typeof user.$inferInsert;
 export type SelectUser = typeof user.$inferSelect;
 
-const projectType = pgEnum('project_type', ['novel', 'short_story', 'poem', 'script', 'other']);
+export const userSettings = pgTable('user_settings', {
+  // theme, font_size, notifications_enabled
+  theme: text('theme').notNull(),
+  font_size: integer('font_size').notNull(),
+  font_family: text('font_family').notNull(),
+  notifications_enabled: boolean('notifications_enabled').notNull(),
+  userId: integer('user_id')
+          .notNull()
+          .references(()=>user.id, {onDelete: 'cascade'}),
+});
+
+export type InsertUserSettings = typeof userSettings.$inferInsert;
+export type SelectUserSettings = typeof userSettings.$inferSelect;
+
+// Project
+
+export const projectType = pgEnum('project_type', ['novel', 'short_story', 'poem', 'script', 'other']);
 
 export const project = pgTable('project', {
   // id, title, description, created at, updated_at
@@ -125,7 +143,6 @@ export const chapter = pgTable('chapter', {
   // id, title, content, created_at, last_modified, word_count
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
-  content: text('content'),
   created_at: timestamp('created_at').notNull().defaultNow(),
   last_modified: timestamp('last_modified').notNull().$onUpdate(()=>new Date()),
   projectId: integer('project_id')
@@ -135,6 +152,54 @@ export const chapter = pgTable('chapter', {
 
 export type InsertChapter = typeof chapter.$inferInsert;
 export type SelectChapter = typeof chapter.$inferSelect;
+
+export const scene = pgTable('scene', {
+  id: serial('id').primaryKey(),
+  title: text('title'),
+  content: text('content'),
+  summary: text('summary'),
+  created_at: timestamp('created_at').notNull().defaultNow(),
+  last_modified: timestamp('last_modified').notNull().$onUpdate(()=>new Date()),
+  chapterId: integer('chapter_id')
+          .notNull()
+          .references(()=>chapter.id, {onDelete: 'cascade'}),
+});
+
+// Entity
+
+export const entityType = pgEnum('entity_type', ['character', 'location', 'object', 'lore', 'subplot', 'other' ]);
+
+export const entity = pgTable('entity', {
+  id: serial('id').primaryKey(),
+  type: entityType('type').default('character'),
+  name: text('name').notNull(),
+  aliases: text('aliases'),
+  description: text('description'),
+  image: text('entity_image'),
+  inspirations: text('inspirations'),
+  projectId: integer('project_id')
+          .notNull()
+          .references(()=>project.id, {onDelete: 'cascade'}),
+});
+
+export type InsertEntity = typeof entity.$inferInsert;
+export type SelectEntity = typeof entity.$inferSelect;
+
+export const contextType = pgEnum('context_type', ['manuscript', 'scene_summary', 'relations', 'chat']);
+
+export const entity_mentions = pgTable('entity_mentions', {
+  id: serial('id').primaryKey(),
+  context_type: contextType('context_type').notNull(),
+  location: jsonb('location').$type<{ location: string }>(),
+  entityId: integer('entity_id')
+          .notNull()
+          .references(()=>entity.id, {onDelete: 'cascade'}),
+});
+
+export type InsertEntityMentions = typeof entity_mentions.$inferInsert;
+export type SelectEntityMentions = typeof entity_mentions.$inferSelect;
+
+// Version Control
 
 export const version = pgTable('version', {
   id: serial('id').primaryKey(), // Unique identifier for each version
@@ -154,17 +219,5 @@ export const version = pgTable('version', {
 export type InsertVersion = typeof version.$inferInsert;
 export type SelectVersion = typeof version.$inferSelect;
 
-export const userSettings = pgTable('user_settings', {
-  // theme, font_size, notifications_enabled
-  theme: text('theme').notNull(),
-  font_size: integer('font_size').notNull(),
-  notifications_enabled: boolean('notifications_enabled').notNull(),
-  userId: integer('user_id')
-          .notNull()
-          .references(()=>user.id, {onDelete: 'cascade'}),
-});
-
-export type InsertUserSettings = typeof userSettings.$inferInsert;
-export type SelectUserSettings = typeof userSettings.$inferSelect;
 
 
