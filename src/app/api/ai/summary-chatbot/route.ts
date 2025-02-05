@@ -30,7 +30,7 @@ const conversationPrompt = ChatPromptTemplate.fromMessages([
 const summaryPrompt = ChatPromptTemplate.fromMessages([
   ["system", "You are an expert at creating concise and comprehensive summaries of conversations."],
   ["system", "{summary_strategy}"],
-  ["placeholder", "{messages}"]
+  ["placeholder", "{messages}"],
 ]);
 
 
