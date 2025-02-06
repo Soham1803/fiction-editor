@@ -15,6 +15,7 @@
     "@langchain/langgraph": "^0.2.41",
     "@langchain/langgraph-checkpoint-postgres": "^0.0.2",
     "@langchain/redis": "^0.1.0",
+    "@tiptap/extension-character-count": "^2.11.5",
     "@tiptap/extension-text-align": "^2.11.5",
     "@tiptap/extension-typography": "^2.11.5",
     "@tiptap/pm": "^2.11.5",
