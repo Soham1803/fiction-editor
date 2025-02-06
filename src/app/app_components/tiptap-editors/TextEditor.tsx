@@ -17,7 +17,8 @@ export default function TextEditor() {
             body: JSON.stringify({ message: text }),
         });
         const data = await response.json();
-        return data;
+        const ret = data.messages[data.messages.length - 1].kwargs.content;
+        return ret;
     }
 
     const editor = useEditor({
@@ -30,7 +31,7 @@ export default function TextEditor() {
         ],
         editorProps: {
             attributes: {
-                class: 'p-24 text-lg w-full h-full focus:outline-none',
+                class: 'p-24 text-lg w-full min-h-full focus:outline-none',
             },
         },
         content: `
@@ -47,18 +48,19 @@ export default function TextEditor() {
 
     const { empty: selectionIsEmpty, from: selectionFrom, to: selectionTo } = editor?.state.selection as Selection;
     const selectedText = selectionIsEmpty ? '' : editor?.state.doc.textBetween(selectionFrom, selectionTo, '\n');
+
     const handleReplace = async() => {
         const replaceTo = await getAIResponse(selectedText);
         if (!selectionIsEmpty) {
             editor?.commands.insertContentAt({ from: selectionFrom, to: selectionTo }, replaceTo);
         }
     }
-    console.log(selectedText);
+    // console.log(selectedText);
     
 
     return (
         <div className="relative mt-11 h-[calc(100vh-2.75rem)] w-[60%] bg-slate-400 p-1">
-            <EditorContent className='h-full' editor={editor} />
+            <EditorContent className='h-full overflow-y-auto' editor={editor} />
             {editor && <BubbleMenu editor={editor} tippyOptions={{duration: 100}} >
                 <button onClick={() => editor.chain().focus().toggleBold().run()} className="p-2">B</button>
                 <button onClick={() => editor.chain().focus().toggleItalic().run()} className="p-2">I</button>
