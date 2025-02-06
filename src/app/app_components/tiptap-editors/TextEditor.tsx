@@ -7,6 +7,9 @@ import Typography from '@tiptap/extension-typography'
 import { Selection } from '@tiptap/pm/state';
 import CharacterCount from '@tiptap/extension-character-count';
 
+import { CharacterNameExtension } from './Extension';
+
+
 export default function TextEditor() {
 
     const getAIResponse = async (text: string) => {
@@ -22,11 +25,14 @@ export default function TextEditor() {
         return ret;
     }
 
+
+
     const editor = useEditor({
         extensions: [
             StarterKit,
             Typography,
             CharacterCount,
+            CharacterNameExtension([['Alice', '#fad7a0'], ['Bob', '#82e0aa'], ['Soham Panchal', '#d7bde2'], ]),
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
             }),
