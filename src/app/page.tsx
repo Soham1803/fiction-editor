@@ -1,7 +1,7 @@
 import Navbar from "./app_components/Navbar";
 import LeftSidebar from "./app_components/LeftSidebar";
 import RightSidebar from "./app_components/RightSidebar";
-import TextEditor from "./app_components/TextEditor";
+import TextEditor from "./app_components/tiptap-editors/TextEditor";
 
 export default function Home() {
   return (
