@@ -1,16 +1,25 @@
 'use client'
-
-import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
+import { useState, useCallback } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
 import Typography from '@tiptap/extension-typography'
+import Heading from '@tiptap/extension-heading';
 import { Selection } from '@tiptap/pm/state';
 import CharacterCount from '@tiptap/extension-character-count';
+import Placeholder from '@tiptap/extension-placeholder'
 
-import { CharacterNameExtension } from './Extension';
+import { CharacterNameExtension, SlashCommandExtension, SlashCommandItem } from './Extensions';
+import {SlashCommandMenu} from './editor-subcomponents/SlashCommandMenu';
+import MyBubbleMenu from './editor-subcomponents/BubbleMenu';
+
+// Slash Command Menu Component
+
 
 
 export default function TextEditor() {
+
+    const [showSlashMenu, setShowSlashMenu] = useState(false);
 
     const getAIResponse = async (text: string) => {
         const response = await fetch('http://localhost:3000/api/ai/summary-chatbot', {
@@ -25,30 +34,83 @@ export default function TextEditor() {
         return ret;
     }
 
-
+    const slashCommands: SlashCommandItem[] = [
+        {
+          title: 'AI Assist',
+          description: 'Get AI-powered writing suggestions',
+          action: () => {
+            // Implement AI assistance logic
+            console.log('AI Assist triggered');
+          }
+        },
+        {
+          title: 'Code Block',
+          description: 'Insert a code block',
+          action: (editor) => {
+            editor.chain().focus().setCodeBlock({language: 'javascript'}).run();
+          }
+        },
+        {
+          title: 'Heading 1',
+          description: 'Large section heading',
+          action: (editor) => {
+            editor.chain().focus().setHeading({ level: 1 }).run();
+          }
+        }
+      ];
+    
 
     const editor = useEditor({
         extensions: [
-            StarterKit,
             Typography,
             CharacterCount,
+            Heading.configure({
+                levels: [1, 2, 3, 4],
+            }),
+            StarterKit,
+            Placeholder.configure({
+                placeholder: 'Type "/" to see available commands...',
+            }),
             CharacterNameExtension([['Alice', '#fad7a0'], ['Bob', '#82e0aa'], ['Soham Panchal', '#d7bde2'], ]),
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
             }),
+            SlashCommandExtension.configure({
+                suggestion: {
+                    // char: '/',
+                    // startOfLine: true,
+                    items: slashCommands,
+                    // component: SlashCommandMenu,
+                    // onOpen: () => setShowSlashMenu(true),
+                    // onClose: () => setShowSlashMenu(false),
+                },
+            }),
         ],
+        onTransaction: ({ editor }) => {
+            // Check if '/' was just typed
+            const { selection } = editor.state;
+            const $anchor = selection.$anchor;
+            const textBefore = editor.state.doc.textBetween(
+              $anchor.pos - 1, 
+              $anchor.pos, 
+              '\n'
+            );
+      
+            setShowSlashMenu(textBefore === '/');
+          },
         editorProps: {
             attributes: {
-                class: 'p-24 text-lg w-full min-h-full focus:outline-none',
+                class: 'relative p-24 text-lg w-full min-h-full focus:outline-none',
             },
         },
-        content: `
-            <h2>
-                Hello World!
-            </h2>
-        `,
         immediatelyRender: false,
     });
+
+    const handleCloseSlashMenu = useCallback(() => {
+        setShowSlashMenu(false);
+        // Remove the '/' character
+        editor?.chain().focus().deleteRange({ from: editor.state.selection.$anchor.pos - 1, to: editor.state.selection.$anchor.pos }).run();
+      }, [editor]);
 
     if (!editor) {
         return null;
@@ -73,18 +135,8 @@ export default function TextEditor() {
                 <p>Characters: {editor.storage.characterCount.characters()}</p>
                 <p>Words: {editor.storage.characterCount.words()}</p>
             </div>
-            {editor && <BubbleMenu editor={editor} tippyOptions={{duration: 100}} >
-                <div className='flex flex-row'>
-                 <button onClick={() => editor.chain().focus().toggleBold().run()} className="p-2">B</button>
-                 <button onClick={() => editor.chain().focus().toggleItalic().run()} className="p-2">I</button>
-                 <button onClick={() => editor.chain().focus().toggleStrike().run()} className="p-2">S</button>
-                 <button onClick={() => editor.chain().focus().setTextAlign('left').run()} className="p-2">Left</button>
-                 <button onClick={() => editor.chain().focus().setTextAlign('center').run()} className="p-2">Center</button>
-                 <button onClick={() => editor.chain().focus().setTextAlign('right').run()} className="p-2">Right</button>
-                 <button onClick={() => editor.chain().focus().setTextAlign('justify').run()} className="p-2">Justify</button>
-                 <button onClick={handleReplace} className="p-2">Replace</button>
-                </div>
-            </BubbleMenu>}
+            {editor && <MyBubbleMenu editor={editor} handleReplace={handleReplace} />}
+            {showSlashMenu && <SlashCommandMenu items={slashCommands} editor={editor} onClose={handleCloseSlashMenu} />}
         </div>
     )
 }

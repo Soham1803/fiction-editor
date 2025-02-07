@@ -1,5 +1,5 @@
-import { Extension } from '@tiptap/core';
-import { Plugin } from 'prosemirror-state';
+import { Extension, Editor } from '@tiptap/core';
+import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 
 export const CharacterNameExtension = (characterNames: [string, string][]) => {
@@ -47,3 +47,47 @@ export const CharacterNameExtension = (characterNames: [string, string][]) => {
       }
     });
   };
+
+  // Slash Command Item Interface
+export interface SlashCommandItem {
+    title: string;
+    description: string;
+    icon?: string;
+    action: (editor: Editor) => void;
+  }
+  
+// Slash Command Extension
+export const SlashCommandExtension = Extension.create({
+  name: 'slashCommand',
+
+  addOptions() {
+    return {
+      suggestion: {
+        char: '/',
+        startOfLine: true,
+        items: [] as SlashCommandItem[]
+      }
+    };
+  },
+
+  addProseMirrorPlugins() {
+    return [
+      new Plugin({
+        key: new PluginKey('slashCommand'),
+        props: {
+          // Handle decorations and slash command logic
+          handleTextInput(view, from, to, text) {
+            if (text === '/') {
+              // Trigger slash command menu
+              const plugin = view.state.plugins.find(plugin => plugin.spec.key === new PluginKey('slashCommand'));
+              if (plugin) {
+                plugin.spec.options.suggestion.showMenu = true;
+              }
+            }
+            return false;
+          }
+        }
+      })
+    ];
+  }
+});
