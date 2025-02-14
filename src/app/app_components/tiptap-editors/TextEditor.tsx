@@ -8,10 +8,14 @@ import Heading from '@tiptap/extension-heading';
 import { Selection } from '@tiptap/pm/state';
 import CharacterCount from '@tiptap/extension-character-count';
 import Placeholder from '@tiptap/extension-placeholder'
+import Color from '@tiptap/extension-color';
+import TextStyle from '@tiptap/extension-text-style';
+import Highlight from '@tiptap/extension-highlight';
 
 import { CharacterNameExtension, SlashCommandExtension, SlashCommandItem } from './Extensions';
 import {SlashCommandMenu} from './editor-subcomponents/SlashCommandMenu';
 import MyBubbleMenu from './editor-subcomponents/BubbleMenu';
+import TextReplacer from './editor-subcomponents/TextReplacer';
 
 // Slash Command Menu Component
 
@@ -20,6 +24,7 @@ import MyBubbleMenu from './editor-subcomponents/BubbleMenu';
 export default function TextEditor() {
 
     const [showSlashMenu, setShowSlashMenu] = useState(false);
+    const [replaceTo, setReplaceTo] = useState('');
 
     const getAIResponse = async (text: string) => {
         const response = await fetch('http://localhost:3000/api/ai/summary-chatbot', {
@@ -64,6 +69,11 @@ export default function TextEditor() {
         extensions: [
             Typography,
             CharacterCount,
+            Color,
+            TextStyle,
+            Highlight.configure({
+              multicolor: true,
+            }),
             Heading.configure({
                 levels: [1, 2, 3, 4],
             }),
@@ -120,10 +130,10 @@ export default function TextEditor() {
     const selectedText = selectionIsEmpty ? '' : editor?.state.doc.textBetween(selectionFrom, selectionTo, '\n');
 
     const handleReplace = async() => {
-        const replaceTo = await getAIResponse(selectedText);
-        if (!selectionIsEmpty) {
-            editor?.commands.insertContentAt({ from: selectionFrom, to: selectionTo }, replaceTo);
-        }
+        const aiText = await getAIResponse(selectedText);
+        editor.chain().focus().setColor('#ff88aa').run();
+        editor.chain().focus().setHighlight({ color: 'yellow' }).run();
+        setReplaceTo(aiText);
     }
     // console.log(selectedText);
     
@@ -136,6 +146,7 @@ export default function TextEditor() {
                 <p>Words: {editor.storage.characterCount.words()}</p>
             </div>
             {editor && <MyBubbleMenu editor={editor} handleReplace={handleReplace} />}
+            {replaceTo !== '' && <TextReplacer editor={editor} replaceTo={replaceTo} setReplaceTo={setReplaceTo} />}
             {showSlashMenu && <SlashCommandMenu items={slashCommands} editor={editor} onClose={handleCloseSlashMenu} />}
         </div>
     )
