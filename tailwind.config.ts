@@ -9,9 +9,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        accent: 'var(--color-accent)',
+        background: 'var(--color-background)',
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'hover-bg': 'var(--color-hover-bg)',
+        'hover-text': 'var(--color-hover-text)',
+        'border-color': 'var(--color-border)',
       },
+      fontFamily: {
+        theme: 'var(--font-family)',
+      },
+      borderRadius: {
+        theme: 'var(--border-radius)',
+      },
+      spacing: {
+        'theme-spacing': 'var(--spacing)',
+      }
     },
   },
   plugins: [],

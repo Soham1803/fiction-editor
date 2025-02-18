@@ -139,9 +139,9 @@ export default function TextEditor() {
     
 
     return (
-        <div className="relative mt-11 h-[calc(100vh-2.75rem)] w-[60%] bg-slate-400 p-1">
+        <div className="relative mt-11 h-[calc(100vh-2.75rem)] w-[60%] bg-background text-accent p-1">
             <EditorContent className='h-full overflow-y-auto' editor={editor} />
-            <div className='absolute top-3 right-10 text-sm'>
+            <div className='absolute top-3 right-10 text-sm p-2 bg-background rounded-xl'>
                 <p>Characters: {editor.storage.characterCount.characters()}</p>
                 <p>Words: {editor.storage.characterCount.words()}</p>
             </div>

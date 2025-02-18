@@ -19,7 +19,7 @@ export default function TextReplacer(props: TextReplacerProps) {
   }
 
   const handleTextReplace = async () => {
-    props.editor.chain().focus().setColor('#ededed').run();
+    props.editor.chain().focus().setColor('var(--color-accent)').run();
     props.editor.chain().focus().unsetHighlight().run();
     props.editor.commands.insertContentAt(
       { from: selectionFrom, to: selectionTo },
@@ -30,7 +30,7 @@ export default function TextReplacer(props: TextReplacerProps) {
 
   const handleDiscard = () => {
     props.setReplaceTo("");
-    props.editor.chain().focus().setColor('#ededed').run();
+    props.editor.chain().focus().setColor('var(--color-accent)').run();
     props.editor.chain().focus().unsetHighlight().run();
   };
 

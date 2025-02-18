@@ -1,10 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme (default) */
+  --color-primary: #ffffff;
+  --color-secondary: #f3f4f6;
+  --color-accent: #3b82f6;
+  --color-background: #ffffff;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-hover-bg: #e5e7eb;
+  --color-hover-text: #1f2937;
+  --color-border: rgba(59, 130, 246, 0.2);
+  --font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --border-radius: 0.5rem;
+  --spacing: 1rem;
+}
+
+[data-theme='dark'] {
+  --color-primary: #1f2937;
+  --color-secondary: #374151;
+  --color-accent: #60a5fa;
+  --color-background: #111827;
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #e5e7eb;
+  --color-hover-bg: #4b5563;
+  --color-hover-text: #ffffff;
+  --color-border: rgba(96, 165, 250, 0.2);
+  --font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --border-radius: 0.5rem;
+  --spacing: 1rem;
+}
+
+[data-theme='sepia'] {
+  --color-primary: #fffbeb;
+  --color-secondary: #fef3c7;
+  --color-accent: #d97706;
+  --color-background: #fffbeb;
+  --color-text-primary: #78350f;
+  --color-text-secondary: #92400e;
+  --color-hover-bg: #fde68a;
+  --color-hover-text: #78350f;
+  --color-border: rgba(217, 119, 6, 0.2);
+  --font-family: 'Georgia', serif;
+  --border-radius: 0.25rem;
+  --spacing: 1.25rem;
+}
+
+[data-theme='forest'] {
+  --color-primary: #064e3b;
+  --color-secondary: #065f46;
+  --color-accent: #34d399;
+  --color-background: #064e3b;
+  --color-text-primary: #ecfdf5;
+  --color-text-secondary: #6cb48fab;
+  --color-hover-bg: #047857;
+  --color-hover-text: #ecfdf5;
+  --color-border: rgba(52, 211, 153, 0.2);
+  --font-family: 'Courier New', monospace;
+  --border-radius: 0;
+  --spacing: 1.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +78,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   width: 100vw;
   height: 100vh;
+  font-family: 'DM Sans', sans-serif;
 }
 
 h1 {

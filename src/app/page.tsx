@@ -5,7 +5,7 @@ import TextEditor from "./app_components/tiptap-editors/TextEditor";
 
 export default function Home() {
   return (
-    <div className="flex flex-row items-center justify-between h-full w-full bg-slate-500">
+    <div className="flex flex-row items-center justify-between h-full w-full bg-background">
       <Navbar />
       <LeftSidebar /> 
       <TextEditor />

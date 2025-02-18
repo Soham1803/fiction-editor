@@ -22,9 +22,16 @@ export const SlashCommandMenu: React.FC<{
   
     return (
       <div 
-        className="absolute bg-slate-900 cursor-pointer"
+        className="absolute bg-background cursor-pointer"
         style={{
-          top: editor.view.coordsAtPos(editor.state.selection.$anchor.pos).bottom - 50,
+          ...(editor.view.coordsAtPos(editor.state.selection.$anchor.pos).bottom > window.innerHeight - 200
+        ? {
+            bottom: window.innerHeight - editor.view.coordsAtPos(editor.state.selection.$anchor.pos).top + 10,
+          }
+        : {
+            top: editor.view.coordsAtPos(editor.state.selection.$anchor.pos).bottom - 50,
+          }
+          ),
           left: 130,
         }}
       >
@@ -37,14 +44,14 @@ export const SlashCommandMenu: React.FC<{
         />
         <div className="command-list">
           {filteredItems.map((item, index) => (
-            <div 
-              key={index} 
-              className="flex flex-col hover:bg-slate-800 active:bg-slate-700"
-              onClick={() => handleItemSelect(item)}
-            >
-              {item.title}
-              <span className="text-xs">{item.description}</span>
-            </div>
+        <div 
+          key={index} 
+          className="flex flex-col hover:bg-primary active:bg-secondary"
+          onClick={() => handleItemSelect(item)}
+        >
+          {item.title}
+          <span className="text-xs">{item.description}</span>
+        </div>
           ))}
         </div>
       </div>

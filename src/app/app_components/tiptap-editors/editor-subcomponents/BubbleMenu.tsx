@@ -8,8 +8,8 @@ interface BubbleMenuProps {
 
 export default function MyBubbleMenu(props: BubbleMenuProps) {
   return (
-    <BubbleMenu editor={props.editor} tippyOptions={{ duration: 100 }}>
-      <div className="flex flex-row">
+    <BubbleMenu className="bg-background min-w-max rounded-md" editor={props.editor} tippyOptions={{ duration: 100 }}>
+      <div className="flex flex-row rounded-md">
         <button
           onClick={() => props.editor.chain().focus().toggleBold().run()}
           className="p-2"
@@ -60,7 +60,7 @@ export default function MyBubbleMenu(props: BubbleMenuProps) {
         >
           Justify
         </button>
-        <button onClick={props.handleReplace} className="p-2">
+        <button onClick={props.handleReplace} className="rounded-md bg-background p-2">
           Replace
         </button>
       </div>

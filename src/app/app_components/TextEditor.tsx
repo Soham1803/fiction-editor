@@ -54,7 +54,7 @@ export default function TextEditor() {
     }
 
     return (
-        <div className="relative mt-11 h-[calc(100vh-2.75rem)] w-[60%] bg-slate-300 p-1">
+        <div className="relative mt-11 h-[calc(100vh-2.75rem)] w-[60%] bg-primary p-1">
             <textarea 
                 ref={textAreaRef}
                 className="w-full h-full border-0 focus:outline-none rounded-lg p-32 text-slate-500 resize-none" 
