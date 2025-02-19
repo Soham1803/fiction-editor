@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 
 
 export default function ThemeSetter() {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('dark');
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);

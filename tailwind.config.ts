@@ -27,6 +27,11 @@ export default {
       },
       spacing: {
         'theme-spacing': 'var(--spacing)',
+      },
+      margin: {
+        primary: '2px',
+        secondary: '4px',
+        tertiary: '6px',
       }
     },
   },
