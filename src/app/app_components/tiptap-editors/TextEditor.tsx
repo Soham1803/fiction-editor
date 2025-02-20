@@ -131,8 +131,8 @@ export default function TextEditor() {
 
     const handleReplace = async() => {
         const aiText = await getAIResponse(selectedText);
-        editor.chain().focus().setColor('#ff88aa').run();
-        editor.chain().focus().setHighlight({ color: 'yellow' }).run();
+        editor.chain().focus().setColor('var(--color-secondary)').run();
+        editor.chain().focus().setHighlight({ color: 'var(--color-primary)' }).run();
         setReplaceTo(aiText);
     }
     // console.log(selectedText);

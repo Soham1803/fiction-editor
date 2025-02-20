@@ -1,5 +1,10 @@
 import { Editor } from "@tiptap/core";
 import { BubbleMenu } from "@tiptap/react";
+import { AiOutlineBold, AiOutlineItalic, AiOutlineStrikethrough, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineAlignCenter} from "react-icons/ai";
+import { RiAlignJustify } from "react-icons/ri";
+import { BsFiletypeAi } from "react-icons/bs";
+import { cn } from "@/utils/class-join";
+
 
 interface BubbleMenuProps {
   editor: Editor;
@@ -12,56 +17,56 @@ export default function MyBubbleMenu(props: BubbleMenuProps) {
       <div className="flex flex-row rounded-md">
         <button
           onClick={() => props.editor.chain().focus().toggleBold().run()}
-          className="p-2"
+          className={cn(props.editor.isActive('bold')?"text-accent":"","p-2 hover:text-accent")}
         >
-          B
+          <AiOutlineBold />
         </button>
         <button
           onClick={() => props.editor.chain().focus().toggleItalic().run()}
-          className="p-2"
+          className={cn(props.editor.isActive('italic')?"text-accent":"","p-2 hover:text-accent")}
         >
-          I
+          <AiOutlineItalic />
         </button>
         <button
           onClick={() => props.editor.chain().focus().toggleStrike().run()}
-          className="p-2"
+          className={cn(props.editor.isActive('strike')?"text-accent":"","p-2 hover:text-accent")}
         >
-          S
+          <AiOutlineStrikethrough />
         </button>
         <button
           onClick={() =>
             props.editor.chain().focus().setTextAlign("left").run()
           }
-          className="p-2"
+          className={cn(props.editor.isActive({textAlign : 'left'})?"text-accent":"","p-2 hover:text-accent")}
         >
-          Left
+          <AiOutlineAlignLeft />
         </button>
         <button
           onClick={() =>
             props.editor.chain().focus().setTextAlign("center").run()
           }
-          className="p-2"
+          className={cn(props.editor.isActive({textAlign : 'center'})?"text-accent":"","p-2 hover:text-accent")}
         >
-          Center
+          <AiOutlineAlignCenter />
         </button>
         <button
           onClick={() =>
             props.editor.chain().focus().setTextAlign("right").run()
           }
-          className="p-2"
+          className={cn(props.editor.isActive({textAlign : 'right'})?"text-accent":"","p-2 hover:text-accent")}
         >
-          Right
+          <AiOutlineAlignRight />
         </button>
         <button
           onClick={() =>
             props.editor.chain().focus().setTextAlign("justify").run()
           }
-          className="p-2"
+          className={cn(props.editor.isActive({textAlign : 'justify'})?"text-accent":"","p-2 hover:text-accent")}
         >
-          Justify
+          <RiAlignJustify />
         </button>
-        <button onClick={props.handleReplace} className="rounded-md bg-background p-2">
-          Replace
+        <button onClick={props.handleReplace} className={cn("rounded-md bg-background p-2 hover:text-accent")}>
+          <BsFiletypeAi />
         </button>
       </div>
     </BubbleMenu>
