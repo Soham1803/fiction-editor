@@ -16,7 +16,7 @@
   --color-hover-text: #1f2937;
   --color-border: rgba(59, 130, 246, 0.2);
   --font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --border-radius: 0.5rem;
+  --border-radius: 0.3rem;
   --spacing: 1rem;
 }
 
@@ -31,7 +31,7 @@
   --color-hover-text: #ffffff;
   --color-border: rgba(96, 165, 250, 0.2);
   --font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --border-radius: 0.5rem;
+  --border-radius: 0.3rem;
   --spacing: 1rem;
 }
 
@@ -46,7 +46,7 @@
   --color-hover-text: #78350f;
   --color-border: rgba(217, 119, 6, 0.2);
   --font-family: 'Georgia', serif;
-  --border-radius: 0.25rem;
+  --border-radius: 0.3rem;
   --spacing: 1.25rem;
 }
 
@@ -61,7 +61,7 @@
   --color-hover-text: #ecfdf5;
   --color-border: rgba(52, 211, 153, 0.2);
   --font-family: 'Courier New', monospace;
-  --border-radius: 0;
+  --border-radius: 0.3rem;
   --spacing: 1.5rem;
 }
 
@@ -98,4 +98,24 @@ h3 {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--background);
+  border: 1px solid var(--color-text-secondary);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: var(--background);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  width: 6px;
+  background-image: linear-gradient(135deg, var(--color-primary), var(--color-secondary) 75%);
+  border: 1px solid var(--color-text-secondary);
+  border-radius: 6px;
 }
