@@ -12,7 +12,7 @@ export default function CollapseExpand(props: CollapseExpandProps) {
     <div
       className={cn(
         props.collapsed ? "top-3" : "top-1.5",
-        "absolute ",
+        "absolute z-10",
         props.side === "right" ? "-left-10" : "-right-6",
       )}
     >
