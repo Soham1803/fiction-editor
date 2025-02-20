@@ -6,8 +6,8 @@
 
 :root {
   /* Light theme (default) */
-  --color-primary: #ffffff;
-  --color-secondary: #f3f4f6;
+  --color-primary: #e2e2e2;
+  --color-secondary: #afafaf;
   --color-accent: #3b82f6;
   --color-background: #ffffff;
   --color-text-primary: #1f2937;
@@ -36,8 +36,8 @@
 }
 
 [data-theme='sepia'] {
-  --color-primary: #fffbeb;
-  --color-secondary: #fef3c7;
+  --color-primary: #fdf3ca;
+  --color-secondary: #f7de7e;
   --color-accent: #d97706;
   --color-background: #fffbeb;
   --color-text-primary: #78350f;
@@ -51,8 +51,8 @@
 }
 
 [data-theme='forest'] {
-  --color-primary: #064e3b;
-  --color-secondary: #065f46;
+  --color-primary: #075c45;
+  --color-secondary: #087c5b;
   --color-accent: #34d399;
   --color-background: #064e3b;
   --color-text-primary: #ecfdf5;
