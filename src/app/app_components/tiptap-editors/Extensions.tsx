@@ -64,7 +64,7 @@ export const SlashCommandExtension = Extension.create({
     return {
       suggestion: {
         char: '/',
-        startOfLine: true,
+        startOfLine: false, // Allow slash commands anywhere
         items: [] as SlashCommandItem[]
       }
     };
@@ -75,16 +75,28 @@ export const SlashCommandExtension = Extension.create({
       new Plugin({
         key: new PluginKey('slashCommand'),
         props: {
-          // Handle decorations and slash command logic
-          handleTextInput(view, from, to, text) {
-            if (text === '/') {
+          handleKeyDown(view, event) {
+            if (event.key === '/') {
+              // Get current cursor position
+              const { $head } = view.state.selection
+              
+              // Insert the slash character normally
+              const tr = view.state.tr.insertText('/', $head.pos)
+              view.dispatch(tr)
+              
               // Trigger slash command menu
-              const plugin = view.state.plugins.find(plugin => plugin.spec.key === new PluginKey('slashCommand'));
+              const plugin = view.state.plugins.find(
+                plugin => plugin.spec.key === new PluginKey('slashCommand')
+              )
               if (plugin) {
-                plugin.spec.options.suggestion.showMenu = true;
+                plugin.spec.options.suggestion.showMenu = true
               }
+              
+              // Prevent default handling
+              event.preventDefault()
+              return true
             }
-            return false;
+            return false
           }
         }
       })
