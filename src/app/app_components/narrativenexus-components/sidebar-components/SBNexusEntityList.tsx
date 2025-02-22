@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { cn } from "@/utils/class-join";
 import { FaChevronDown } from "react-icons/fa";
-import { EntityType } from "./SBNexus";
+import { EntityType } from "../entity/entity-types";
 
 interface SBNexusEntityListProps {
   entityType: EntityType;

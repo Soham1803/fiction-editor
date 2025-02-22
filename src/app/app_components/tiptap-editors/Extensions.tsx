@@ -17,18 +17,18 @@ export const CharacterNameExtension = (characterNames: [string, string][]) => {
                   if (node.type.name === 'text') {
                     const text = node.text || '';
                     characterNames.forEach(([name, color]) => {
+                      const punctMarks = '.,!?;:';
+                      if (punctMarks.includes(name[name.length - 1])) return;
 
-                        const punctMarks = '.,!?;:';
-                        if (punctMarks.includes(name[name.length - 1])) return;
-
-                      const regex = new RegExp(`\\s${name}($|\\s|[.,!?;:])`, 'gi');
+                        const regex = new RegExp(`(^|\\s)${name}('s|\\s|[.,!?;:]|')`, 'gi');
                       let match;
                       while ((match = regex.exec(text)) !== null) {
+                        const startOffset = match[1] === '' ? 0 : 1; // If no space before (start of line), offset is 0
                         decorations.push(
                           Decoration.inline(
-                            pos + match.index + 1, 
-                            pos + match.index + match[0].length - 1, 
-                            { 
+                            pos + match.index + startOffset,
+                            pos + match.index + match[0].length - 1,
+                            {
                               class: 'character-name-highlight',
                               style: `color: ${color}; text-decoration: underline;`
                             }

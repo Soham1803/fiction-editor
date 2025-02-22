@@ -2,7 +2,7 @@
 import { cn } from "@/utils/class-join";
 import { useState } from "react";
 import CollapseExpand from "./sub-components/CollapseExpand";
-import SBNexus from "./narrativenexus-components/SBNexus";
+import SBNexus from "./narrativenexus-components/sidebar-components/SBNexus";
 
 type RSBTabs = "chat" | "narrativeNexus";
 

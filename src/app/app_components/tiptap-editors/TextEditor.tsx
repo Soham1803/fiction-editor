@@ -81,19 +81,19 @@ export default function TextEditor() {
             Placeholder.configure({
                 placeholder: 'Type "/" to see available commands...',
             }),
+            SlashCommandExtension.configure({
+              suggestion: {
+                // char: '/',
+                // startOfLine: true,
+                items: slashCommands,
+                // component: SlashCommandMenu,
+                // onOpen: () => setShowSlashMenu(true),
+                // onClose: () => setShowSlashMenu(false),
+              },
+            }),
             CharacterNameExtension([['Alice', '#fad7a0'], ['Bob', '#82e0aa'], ['Soham Panchal', '#d7bde2'], ]),
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
-            }),
-            SlashCommandExtension.configure({
-                suggestion: {
-                    // char: '/',
-                    // startOfLine: true,
-                    items: slashCommands,
-                    // component: SlashCommandMenu,
-                    // onOpen: () => setShowSlashMenu(true),
-                    // onClose: () => setShowSlashMenu(false),
-                },
             }),
         ],
         onTransaction: ({ editor }) => {
