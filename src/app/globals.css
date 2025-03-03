@@ -101,8 +101,8 @@ h3 {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--background);
-  border: 1px solid var(--color-text-secondary);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-secondary);
   border-radius: 6px;
 }
 
@@ -116,6 +116,6 @@ h3 {
   background-color: var(--color-accent);
   width: 6px;
   background-image: linear-gradient(135deg, var(--color-primary), var(--color-secondary) 75%);
-  border: 1px solid var(--color-text-secondary);
+  border: 1px solid var(--color-secondary);
   border-radius: 6px;
 }

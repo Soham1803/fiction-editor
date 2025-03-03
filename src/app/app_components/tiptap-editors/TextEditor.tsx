@@ -110,7 +110,7 @@ export default function TextEditor() {
           },
         editorProps: {
             attributes: {
-                class: 'relative p-24 text-lg w-full min-h-full focus:outline-none text-secondary',
+                class: 'relative px-1 pt-16 text-lg w-full min-h-full focus:outline-none text-secondary',
             },
         },
         immediatelyRender: false,
@@ -139,9 +139,9 @@ export default function TextEditor() {
     
 
     return (
-        <div className="relative mt-11 h-[calc(100vh-2.75rem)] w-[60%] bg-background p-1">
+        <div className="relative my-1 h-full w-full bg-background p-1">
             <EditorContent className='h-full overflow-y-auto' editor={editor} />
-            <div className='absolute top-3 right-10 text-sm p-2 bg-background rounded-xl text-accent'>
+            <div className='absolute top-3 right-10 flex items-center gap-5 text-xs p-2 bg-background rounded-xl text-secondary'>
                 <p>Characters: {editor.storage.characterCount.characters()}</p>
                 <p>Words: {editor.storage.characterCount.words()}</p>
             </div>

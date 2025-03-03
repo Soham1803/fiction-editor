@@ -79,15 +79,14 @@ export const SlashCommandMenu: React.FC<{
               bottom:
                 window.innerHeight -
                 editor.view.coordsAtPos(editor.state.selection.$anchor.pos)
-                  .top +
-                10,
+                  .top - 100,
             }
           : {
               top:
                 editor.view.coordsAtPos(editor.state.selection.$anchor.pos)
-                  .bottom - 50,
+                  .bottom - 320,
             }),
-        left: 130,
+        left: 10,
       }}
       onKeyDown={handleKeyDown} // Add handler to container
       tabIndex={-1} // Make div focusable

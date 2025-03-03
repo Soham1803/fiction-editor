@@ -41,8 +41,8 @@ export default function TextReplacer(props: TextReplacerProps) {
         top:
           props.editor.view.coordsAtPos(
             props.editor.state.selection.$anchor.pos
-          ).bottom - 50,
-        left: 115,
+          ).bottom - 300,
+        left: 10,
       }}
     >
       <div className="flex flex-col items-start justify-between">

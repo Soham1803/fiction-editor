@@ -12,7 +12,7 @@ export default function RightSidebar() {
   return (
     <div
       className={cn(
-        collapsed ? "w-10" : "w-[20%]",
+        collapsed ? "w-10" : "min-w-[20%]",
         "relative flex flex-col items-center justify-start mt-11  h-[calc(100vh-2.75rem)] bg-background ease-in-out duration-200"
       )}
     >
