@@ -6,19 +6,19 @@ import SBNexus from "./narrativenexus-components/SBNexus";
 
 type RSBTabs = "chat" | "narrativeNexus";
 
-export default function RightSidebar() {
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+export default function RightSidebar(props: { collapsed: boolean, setCollapsed: React.Dispatch<React.SetStateAction<boolean>> }) {  
+
   const [activeTab, setActiveTab] = useState<RSBTabs>("chat");
   return (
     <div
       className={cn(
-        collapsed ? "w-10" : "min-w-[20%]",
-        "relative flex flex-col items-center justify-start mt-11  h-[calc(100vh-2.75rem)] bg-background ease-in-out duration-200"
+        !props.collapsed ? "w-10" : "min-w-[25%]",
+        "relative flex flex-col items-center justify-start h-full bg-background ease-in-out duration-200"
       )}
     >
       <CollapseExpand
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
+        collapsed={props.collapsed}
+        setCollapsed={props.setCollapsed}
         side="right"
       />
 
@@ -26,14 +26,14 @@ export default function RightSidebar() {
       <div
         className={cn(
           "flex flex-row items-center justify-between h-10 bg-primary mt-primary",
-          collapsed ? "w-0 hidden" : "w-full"
+          !props.collapsed ? "w-0 hidden" : "w-full"
         )}
       >
         <button
           onClick={() => setActiveTab("chat")}
           className={cn(
             activeTab === "chat" ? "bg-accent text-primary" : "bg-secondary",
-            collapsed ? "w-0" : "w-1/2",
+            !props.collapsed ? "w-0" : "w-1/2",
             " h-full transition-colors duration-200"
           )}
         >
@@ -45,14 +45,14 @@ export default function RightSidebar() {
             activeTab === "narrativeNexus"
               ? "bg-accent text-primary"
               : "bg-secondary",
-            collapsed ? "w-0" : "w-1/2",
+            !props.collapsed ? "w-0" : "w-1/2",
             "h-full transition-colors duration-200"
           )}
         >
           Narrative Nexus
         </button>
       </div>
-      {!collapsed && activeTab === "narrativeNexus" && <SBNexus />}
+      {props.collapsed && activeTab === "narrativeNexus" && <SBNexus />}
     </div>
   );
 }

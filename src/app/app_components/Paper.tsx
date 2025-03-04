@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import TextEditor from "./tiptap-editors/TextEditor";
+import {cn} from "@/utils/class-join";
 
 interface Manuscript {
   act: {
@@ -22,7 +23,9 @@ interface Scene {
   summary: string;
 }
 
-export default function Paper() {
+export default function Paper(props: { rightCollapsed: boolean }) {
+
+
   const [manuscript, setManuscript] = useState<Manuscript | null>({
     act: {
       name: "Act 1",
@@ -131,19 +134,19 @@ export default function Paper() {
   };
 
   return (
-    <div className="relative mt-11 h-[calc(100vh-2.75rem)] min-w-[60%] max-w-[80%] bg-background text-secondary py-20 px-8">
-      <div className="w-full text-center">
+    <div className="relative h-full min-w-[75%] bg-background text-secondary py-20 px-8">
+      <div className="w-full text-left">
         <h2>{manuscript?.act.name}</h2>
       </div>
 
-      <div className="w-full h-full overflow-auto">
+      <div className="w-full h-full overflow-y-auto overflow-x-hidden">
         <div className="w-full">
           {manuscript?.act.chapters.map((chapter, cindex) => (
             <div
               className="flex flex-col items-start justify-start"
               key={cindex}
             >
-              <div className="flex items-start justify-between w-[80%] h-8 font-semibold">
+              <div className={cn(!props.rightCollapsed ?"w-[75%]" : "w-full" ,"flex items-start justify-between h-8 font-semibold ease-in-out duration-200")}>
                 <h3>{chapter.name}</h3>
                 <button
                   className="flex items-center justify-center mt-1 rounded-theme hover:bg-secondary hover:text-red-500 p-1"
@@ -155,7 +158,7 @@ export default function Paper() {
               <div className="w-full p-2">
                 {chapter.scenes.map((scene, sindex) => (
                   <div className="w-full" key={sindex}>
-                    <div className="relative flex items-center justify-between w-[80%] h-5">
+                    <div className={cn(!props.rightCollapsed?"w-[75%]" :"w-full", "relative flex items-center justify-between h-5 ease-in-out duration-200")}>
                       <h4 className="font-semibold w-full text-center underline">
                         {scene.scene}
                       </h4>
@@ -168,13 +171,13 @@ export default function Paper() {
                     </div>
 
                     <div className="flex items-start justify-between w-full">
-                      <div className="w-[80%] my-2 py-2 border-b-[1px] border-secondary border-dashed">
+                      <div className={cn(!props.rightCollapsed?"w-[75%]":"w-full","my-2 py-2 border-b-[1px] border-secondary border-dashed ease-in-out duration-200")}>
                         <TextEditor />
                       </div>
-                      <div className="w-[20%] p-2 mt-5">
+                      {!props.rightCollapsed && <div className={cn("w-[25%] p-4 mt-5")}>
                         <h4>Summary:</h4>
                         <p className="text-base">{scene.summary}</p>
-                      </div>
+                      </div>}
                     </div>
                   </div>
                 ))}
