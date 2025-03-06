@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import TextEditor from "./tiptap-editors/TextEditor";
-import {cn} from "@/utils/class-join";
+import { cn } from "@/utils/class-join";
 
 interface Manuscript {
   act: {
@@ -24,8 +24,6 @@ interface Scene {
 }
 
 export default function Paper(props: { rightCollapsed: boolean }) {
-
-
   const [manuscript, setManuscript] = useState<Manuscript | null>({
     act: {
       name: "Act 1",
@@ -36,7 +34,8 @@ export default function Paper(props: { rightCollapsed: boolean }) {
             {
               scene: "Scene1",
               content: "This is the content of the scene",
-              summary: "Jonah wakes up from the dream tensed, sweated forehead, and a racing heart. He looks around the room, trying to make sense of the dream he just had. He tries to remember the details of the dream, but it's all a blur. He gets up from the bed and walks to the window. The sun is shining bright, and the birds are chirping. He takes a deep breath and tries to calm himself down.",
+              summary:
+                "Jonah wakes up from the dream tensed, sweated forehead, and a racing heart. He looks around the room, trying to make sense of the dream he just had. He tries to remember the details of the dream, but it's all a blur. He gets up from the bed and walks to the window. The sun is shining bright, and the birds are chirping. He takes a deep breath and tries to calm himself down.",
             },
           ],
         },
@@ -58,7 +57,8 @@ export default function Paper(props: { rightCollapsed: boolean }) {
                     {
                       scene: "Scene1",
                       content: "This is the content of the scene",
-                      summary: "Jonah wakes up from the dream tensed, sweated forehead, and a racing heart. He looks around the room, trying to make sense of the dream he just had. He tries to remember the details of the dream, but it's all a blur. He gets up from the bed and walks to the window. The sun is shining bright, and the birds are chirping. He takes a deep breath and tries to calm himself down.",
+                      summary:
+                        "Jonah wakes up from the dream tensed, sweated forehead, and a racing heart. He looks around the room, trying to make sense of the dream he just had. He tries to remember the details of the dream, but it's all a blur. He gets up from the bed and walks to the window. The sun is shining bright, and the birds are chirping. He takes a deep breath and tries to calm himself down.",
                     },
                   ],
                 },
@@ -99,7 +99,8 @@ export default function Paper(props: { rightCollapsed: boolean }) {
                         {
                           scene: `Scene${chapter.scenes.length + 1}`,
                           content: "This is the content of the scene",
-                          summary: "Jonah wakes up from a dream tensed, sweated forehead, and a racing heart. He looks around the room, trying to make sense of the dream he just had. He tries to remember the details of the dream, but it's all a blur. He gets up from the bed and walks to the window. The sun is shining bright, and the birds are chirping. He takes a deep breath and tries to calm himself down.",
+                          summary:
+                            "Jonah wakes up from a dream tensed, sweated forehead, and a racing heart. He looks around the room, trying to make sense of the dream he just had. He tries to remember the details of the dream, but it's all a blur. He gets up from the bed and walks to the window. The sun is shining bright, and the birds are chirping. He takes a deep breath and tries to calm himself down.",
                         },
                       ],
                     }
@@ -134,9 +135,14 @@ export default function Paper(props: { rightCollapsed: boolean }) {
   };
 
   return (
-    <div className="relative h-full min-w-[75%] bg-background text-secondary py-20 px-8">
-      <div className="w-full text-left">
-        <h2>{manuscript?.act.name}</h2>
+    <div
+      className={cn(
+        props.rightCollapsed ? "w-[90%]" : "w-[75%]",
+        "relative h-full bg-background text-secondary pt-8 pb-24 px-8 ease-in-out duration-200"
+      )}
+    >
+      <div className="w-full text-center">
+        <h2 className={cn(props.rightCollapsed?"w-[75%]":"w-full")} >{manuscript?.act.name}</h2>
       </div>
 
       <div className="w-full h-full overflow-y-auto overflow-x-hidden">
@@ -146,7 +152,12 @@ export default function Paper(props: { rightCollapsed: boolean }) {
               className="flex flex-col items-start justify-start"
               key={cindex}
             >
-              <div className={cn(!props.rightCollapsed ?"w-[75%]" : "w-full" ,"flex items-start justify-between h-8 font-semibold ease-in-out duration-200")}>
+              <div
+                className={cn(
+                
+                  "w-full flex items-start justify-between h-8 font-semibold ease-in-out duration-200"
+                )}
+              >
                 <h3>{chapter.name}</h3>
                 <button
                   className="flex items-center justify-center mt-1 rounded-theme hover:bg-secondary hover:text-red-500 p-1"
@@ -158,8 +169,13 @@ export default function Paper(props: { rightCollapsed: boolean }) {
               <div className="w-full p-2">
                 {chapter.scenes.map((scene, sindex) => (
                   <div className="w-full" key={sindex}>
-                    <div className={cn(!props.rightCollapsed?"w-[75%]" :"w-full", "relative flex items-center justify-between h-5 ease-in-out duration-200")}>
-                      <h4 className="font-semibold w-full text-center underline">
+                    <div
+                      className={cn(
+                        
+                        "relative w-full flex items-center justify-between h-5 ease-in-out duration-200"
+                      )}
+                    >
+                      <h4 className={cn(props.rightCollapsed ?"w-[75%]" :"w-full" ,"font-semibold text-center underline")}>
                         {scene.scene}
                       </h4>
                       <button
@@ -171,13 +187,23 @@ export default function Paper(props: { rightCollapsed: boolean }) {
                     </div>
 
                     <div className="flex items-start justify-between w-full">
-                      <div className={cn(!props.rightCollapsed?"w-[75%]":"w-full","my-2 py-2 border-b-[1px] border-secondary border-dashed ease-in-out duration-200")}>
+                      <div
+                        className={cn(
+                          "w-full my-2 py-2 ease-in-out duration-200"
+                        )}
+                      >
                         <TextEditor />
+                      <div className="w-full h-[1px] border-b-[1px] border-dashed border-secondary my-12" />
                       </div>
-                      {!props.rightCollapsed && <div className={cn("w-[25%] p-4 mt-5")}>
-                        <h4>Summary:</h4>
-                        <p className="text-base">{scene.summary}</p>
-                      </div>}
+                      {props.rightCollapsed && (
+                        <div
+                          className={cn("sticky top-5 w-[30%] p-4 mt-5")}
+                          style={{ alignSelf: "flex-start" }}
+                        >
+                          <h4>Summary:</h4>
+                          <p className="text-base">{scene.summary}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
