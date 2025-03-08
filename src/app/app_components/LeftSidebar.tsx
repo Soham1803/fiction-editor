@@ -1,13 +1,33 @@
-'use client';
-import React, { useState } from "react";
+import React from "react";
 import CollapseExpand from "./sub-components/CollapseExpand";
 import { cn } from "@/utils/class-join";
 
-export default function LeftSidebar() {
-    const [collapsed, setCollapsed] = useState<boolean>(false);
-    return (
-        <div className={cn(collapsed ? "w-10": "w-[20%]","relative mt-11 h-[calc(100vh-2.75rem)] bg-backgound ease-in-out duration-200")}>
-            <CollapseExpand side="left" collapsed={collapsed} setCollapsed={setCollapsed} />
-        </div>
-    )
+interface SidebarProps {
+    collapsed: boolean;
+    setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function LeftSidebar(props: SidebarProps) {
+  
+  return (
+    <div
+      className={cn(
+        props.collapsed ? "w-10" : "w-[20%]",
+        "relative h-full bg-backgound ease-in-out duration-200"
+      )}
+    >
+      <CollapseExpand
+        side="left"
+        collapsed={props.collapsed}
+        setCollapsed={props.setCollapsed}
+      />
+
+      <div
+        className={cn(
+          "flex flex-row items-center justify-between h-10 bg-primary mt-primary",
+          props.collapsed ? "w-0 hidden" : "w-full"
+        )}
+      ></div>
+    </div>
+  );
 }
