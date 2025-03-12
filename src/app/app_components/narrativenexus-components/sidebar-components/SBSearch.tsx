@@ -11,7 +11,7 @@ export default function SBSearch() {
     return (
 
       <div className="relative h-10 w-full bg-secondary flex flex-row items-center justify-between py-1 px-2 text-text-secondary mt-secondary">
-        <AddEntity setChoosenEntityType={setChoosenEntityType} entity={{type:choosenEntityType, name:"Soham Panchal", aliases: ["Soham", "Panchal"], description: "Son of God!", inspiration: "God", image: "image", mentions: ["here", "there"]}} />
+        <AddEntity setChoosenEntityType={setChoosenEntityType} entity={{type:choosenEntityType, name:"Soham Panchal", tag:["Protagonist"], aliases: ["Soham", "Panchal"], description: "Son of God!", inspiration: "God", image: "image", mentions: ["here", "there"]}} />
         <div className="flex flex-row items-center h-full w-[80%]">
           <input
             className="h-full rounded-l-theme bg-background text-xs px-2 w-[80%] focus:outline-none"

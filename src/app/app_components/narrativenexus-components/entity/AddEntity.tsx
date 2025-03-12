@@ -95,6 +95,16 @@ export default function AddEntity({
                   name="name"
                 />
               </div>
+              <div className="flex flex-col w-[80%]">
+                <TitleDescription
+                  title="Role/Tag"
+                  description={`This will be used by AI to track this ${entity.type} entity.`}
+                />
+                <InputList
+                  className="bg-background rounded-md mt-1"
+                  aliases={entity.tag}
+                />
+              </div>
               <div className="flex flex-col w-full">
                 <TitleDescription
                   title="Aliases"

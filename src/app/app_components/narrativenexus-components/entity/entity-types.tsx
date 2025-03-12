@@ -2,6 +2,7 @@
 export interface Entity {
   name: string;
   type: string;
+  tag: string[];
   description: string;
   aliases: string[];
   inspiration: string;

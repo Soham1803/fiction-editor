@@ -44,6 +44,66 @@ export default function EntityList(props: { type: string }) {
             name: "Jasmine",
             role: "Side Character",
             image: "image"
+        },
+        {
+            name: "Jude",
+            role: "Protagonist",
+            image: "image"
+        },
+        {
+            name: "Jade",
+            role: "Side Character",
+            image: "image"
+        },
+        {
+            name: "Jared",
+            role: "Antagonist",
+            image: "image"
+        },
+        {
+            name: "Jocelyn",
+            role: "Side Character",
+            image: "image"
+        },
+        {
+            name: "Jasper",
+            role: "Protagonist",
+            image: "image"
+        },
+        {
+            name: "Jenny",
+            role: "Side Character",
+            image: "image"
+        },
+        {
+            name: "Jasper",
+            role: "Antagonist",
+            image: "image"
+        },
+        {
+            name: "Jasmine",
+            role: "Side Character",
+            image: "image"
+        },
+        {
+            name: "Jude",
+            role: "Protagonist",
+            image: "image"
+        },
+        {
+            name: "Jade",
+            role: "Side Character",
+            image: "image"
+        },
+        {
+            name: "Jared",
+            role: "Antagonist",
+            image: "image"
+        },
+        {
+            name: "Jocelyn",
+            role: "Side Character",
+            image: "image"
         }
     ]
 
@@ -56,7 +116,7 @@ export default function EntityList(props: { type: string }) {
                 <h4 className="italic" >Here are all of your {props.type}s!</h4>
             </div>
 
-            <div className="flex flex-wrap gap-x-2 gap-y-2 w-full max-h-full px-5 overflow-y-auto overflow-x-hidden">
+            <div className="flex flex-wrap gap-x-2 gap-y-2 w-full max-h-[85%] px-5 overflow-y-auto overflow-x-hidden">
                 {characters.map((character, index) => (
                     <div key={index} className="flex-shrink-0">
                       <EntityCard name={character.name} role={character.role} image={character.image} />
