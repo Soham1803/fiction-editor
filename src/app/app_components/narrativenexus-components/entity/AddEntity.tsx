@@ -13,9 +13,11 @@ import EntityTrackingOptions from "./EntityTrackingOptions";
 export default function AddEntity({
   entity,
   setChoosenEntityType,
+  className,
 }: {
   entity: Entity;
   setChoosenEntityType: React.Dispatch<React.SetStateAction<EntityType | "">>;
+  className?: string;
 }) {
   const [detailOption, setDetailOption] = useState<
     "description" | "inspiration" | "mentions" | "relations"
@@ -49,8 +51,8 @@ export default function AddEntity({
       <div
         ref={containerRef}
         className={cn(
-          "absolute z-10 right-72 top-3 bg-primary flex flex-col items-start justify-start p-1 text-text-secondary mt-secondary rounded-theme ease-in-out duration-500 overflow-hidden",
-          "w-[40vw] h-[80vh] opacity-100"
+          className,
+          "bg-primary flex flex-col items-start justify-start p-1 text-text-secondary mt-secondary rounded-theme ease-in-out duration-500 overflow-hidden", 
         )}
         // Add mousedown handler to prevent event from bubbling
         onMouseDown={(e) => e.stopPropagation()}

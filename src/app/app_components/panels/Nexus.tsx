@@ -46,7 +46,7 @@ export default function Nexus() {
         </div>
       ) : (
         <div className="flex flex-col gap-2 w-full h-[100%] px-5 overflow-y-auto overflow-x-hidden">
-          <EntityList type={chooseEntity} />
+          <EntityList setChooseEntity={setChooseEntity} type={chooseEntity} />
         </div>
       )}
     </div>
