@@ -20,7 +20,7 @@ export async function PUT(req: NextRequest, params: {id: string}){
     } 
 }
 
-export async function DELETE(req: NextResponse, params: {id: string}) {
+export async function DELETE(params: {id: string}) {
     try {
         const _id = params.id;
         const response = await deleteBeat(_id);

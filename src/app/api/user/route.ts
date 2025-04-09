@@ -1,4 +1,4 @@
-import { createUser, getAllUsers, getUserByEmail, getUserByUsername } from "@/db/queries/user";
+import { createUser, getUserByEmail, getUserByUsername } from "@/db/queries/user";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest){
