@@ -1,4 +1,4 @@
-import { getSynopsesByProjectId, getSynopsisById, createSynopsis } from "@/db/queries/synopsis";
+import { getSynopsisByProjectId, getSynopsisById, createSynopsis } from "@/db/queries/synopsis";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "Invalid synopsis id", status: 400 });
         }
 
-        const synopsis = id && !projectId ? await getSynopsisById(_id): await getSynopsesByProjectId(_projectId);
+        const synopsis = id && !projectId ? await getSynopsisById(_id): await getSynopsisByProjectId(_projectId);
         return NextResponse.json(synopsis);
     } catch (error) {
         console.log("Catched Error: ", error);

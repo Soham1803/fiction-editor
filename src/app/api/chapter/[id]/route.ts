@@ -1,5 +1,5 @@
 import { updateChapter, deleteChapter } from "@/db/queries/chapter";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function PUT(req: NextResponse, params: {id: string}){
   try {
@@ -16,7 +16,7 @@ export async function PUT(req: NextResponse, params: {id: string}){
   } 
 }
 
-export async function DELETE(req: NextResponse, params: {id: string}) {
+export async function DELETE( params: {id: string}) {
   try {
     const _id = params.id;
     const response = await deleteChapter(_id);
