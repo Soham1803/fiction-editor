@@ -2,6 +2,10 @@
 
 Welcome to Narrative Nexus, an advanced platform designed to enhance the storytelling experience. With cutting-edge AI features, seamless UI, and robust backend infrastructure, Narrative Nexus empowers writers to craft compelling stories efficiently.
 
+## Video
+
+[![Fiction Editor Demo](https://github.com/user-attachments/assets/e7ab4bb4-5dc9-45a8-a56d-d9115b820296)](https://www.loom.com/share/8c561fcfebaf4b9fa6a62ed92e20bfb2?sid=101f4f4c-19f6-41fd-b899-310e934eb8d0)
+
 ## Features
 
 ### AI-Powered Tools
